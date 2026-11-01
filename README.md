@@ -55,6 +55,21 @@ the router — it links to the exact skill for the task at hand.
 
 ---
 
+## Documentation
+
+The skills are the product. [\`docs/\`](./docs/README.md) is the manual for the repo itself.
+
+| Page | What it answers |
+| --- | --- |
+| [getting-started](./docs/getting-started.md) | How do I install this and what happens when I ask for a video? |
+| [how-skills-work](./docs/how-skills-work.md) | What is a skill, how does an agent load one, why 34 files? |
+| [architecture](./docs/architecture.md) | Where does a change belong? Why are two catalogs generated? |
+| [verification](./docs/verification.md) | How was every API claim checked, and how do I re-check it? |
+| [contributing](./docs/contributing.md) | House style, review checklist, how to bump the Remotion version. |
+| [faq](./docs/faq.md) | "I only see README.md", version questions, licensing, scope. |
+
+---
+
 ## Skills
 
 ### Start here
@@ -161,13 +176,21 @@ Standalone lookups, no narrative:
 ## Maintaining this repo
 
 ```bash
-python3 scripts/validate.py      # frontmatter, names, internal links, code fences
-python3 scripts/generate.py      # regenerate reference catalogs from scripts/data/*.json
+python3 scripts/validate.py          # frontmatter, names, internal links, code fences, README coverage
+python3 scripts/generate.py          # regenerate the two generated catalogs from scripts/data/*.json
+python3 scripts/generate.py --check  # fail if a committed catalog is stale (use this in review)
+bash -n scripts/install.sh           # syntax-check the installer
 ```
 
-`scripts/data/effects.json` and `scripts/data/sfx.json` were extracted from
-`@remotion/effects@4.0.539` and `@remotion/sfx@4.0.539` export maps and `.d.ts` files.
-When you bump the Remotion version, refresh them from the tarballs rather than hand-editing.
+`reference/effects-catalog.md` and `reference/sfx-catalog.md` are **generated** — never hand-edit
+them. `scripts/data/effects.json` and `scripts/data/sfx.json` were extracted from
+`@remotion/effects@4.0.539` and `@remotion/sfx@4.0.539` (export maps and `.d.ts` files). When you bump
+the Remotion version, refresh the JSON from the new tarballs rather than editing the markdown.
+
+Everything else is hand-written prose with one rule: every API claim must be checkable against the
+published package. How that was done, and what it does not cover, is in
+[docs/verification.md](./docs/verification.md). Before adding a skill, read
+[docs/contributing.md](./docs/contributing.md).
 
 Content license: MIT. Remotion itself is [licensed separately](./skills/remotion-licensing/SKILL.md)
 — free for individuals and small teams, paid for companies.

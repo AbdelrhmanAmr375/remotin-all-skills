@@ -9,6 +9,8 @@ Checks:
   * all fenced code blocks are closed
   * no skill references a file that does not exist
   * the README skill table covers every skill directory
+  * docs/ links resolve and its code fences are balanced
+  * the generated catalogs match scripts/data/*.json
 
 Exit code 1 on any error.
 """
@@ -136,6 +138,40 @@ def main() -> int:
             text = f.read_text(encoding="utf-8")
             check_fences(f, text)
             check_links(f, text)
+        if not (ref / "effects-catalog.md").exists():
+            errors.append("reference/effects-catalog.md is missing (run scripts/generate.py)")
+        if not (ref / "sfx-catalog.md").exists():
+            errors.append("reference/sfx-catalog.md is missing (run scripts/generate.py)")
+
+    # docs/: links + fences, and the README must link the manual
+    docs = ROOT / "docs"
+    doc_pages = sorted(docs.glob("*.md")) if docs.is_dir() else []
+    if not doc_pages:
+        warnings.append("docs/ is missing or empty")
+    else:
+        for f in doc_pages:
+            text = f.read_text(encoding="utf-8")
+            check_fences(f, text)
+            check_links(f, text)
+        if readme.exists() and "docs/README.md" not in readme.read_text(encoding="utf-8"):
+            warnings.append("README.md does not link docs/README.md")
+
+    # generated catalogs must match scripts/data/*.json
+    gen = ROOT / "scripts" / "generate.py"
+    if gen.exists():
+        import subprocess
+
+        proc = subprocess.run(
+            [sys.executable, str(gen), "--check"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            errors.append(
+                "generated catalogs are stale -> run `python3 scripts/generate.py` "
+                f"({proc.stderr.strip().splitlines()[-1] if proc.stderr.strip() else 'check failed'})"
+            )
 
     for w in warnings:
         print(f"warning: {w}")
@@ -143,7 +179,8 @@ def main() -> int:
         print(f"error: {e}")
 
     print()
-    print(f"{len(skill_dirs)} skills, {len(list((ROOT / 'reference').glob('*.md')))} reference files")
+    ref_count = len(list((ROOT / "reference").glob("*.md")))
+    print(f"{len(skill_dirs)} skills, {ref_count} reference files, {len(doc_pages)} doc pages")
     if errors:
         print(f"FAILED with {len(errors)} error(s)")
         return 1

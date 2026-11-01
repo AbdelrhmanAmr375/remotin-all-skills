@@ -50,5 +50,15 @@ import {Audio} from '@remotion/media';
 - CORS is enabled on `remotion.media`, so they work from the browser and the renderer.
 - For a fully offline render, download them into `public/` and use `staticFile()`.
 - Space hits 1.5–3 seconds apart; one per cut maximum.
+- Check the license before shipping: see
+  [../skills/remotion-sfx/SKILL.md](../skills/remotion-sfx/SKILL.md) for placement guidance.
 
-See [../skills/remotion-sfx/SKILL.md](../skills/remotion-sfx/SKILL.md) for placement guidance and licensing.
+## Sound design, not sound effects
+
+An SFX is punctuation, not content. Three working rules:
+
+1. **One sound per event.** A whoosh *and* a ding *and* a riser on the same cut is noise.
+2. **Match the transient to the frame.** Cut on the sound, not near it — a whoosh that peaks 4
+   frames after the cut reads as a mistake.
+3. **Under the music.** −12 dB to −18 dB below the bed, except for the one hit you want the viewer
+   to feel.

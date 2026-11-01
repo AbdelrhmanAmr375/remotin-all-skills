@@ -60,8 +60,8 @@ Every effect accepts an additional `disabled?: boolean`.
 | `pageTurn()` | `@remotion/effects/page-turn` | `foldPosition?`, `foldDirection?`, `foldRadius?`, `lightDirection?`, `render?`, `backPageOpacity?`, `paperColor?` |
 | `paper()` | `@remotion/effects/paper` | `amount?`, `colorFront?`, `colorBack?`, `contrast?`, `roughness?`, `fiber?`, `fiberSize?`, `crumples?`, `crumpleSize?`, `folds?`, `foldCount?`, `drops?`, `fade?`, `seed?`, `scale?` |
 | `pattern()` | `@remotion/effects/pattern` | `scale?`, `cropLeft?`, `cropTop?`, `cropRight?`, `cropBottom?`, `gapX?`, `gapY?`, `offsetU?`, `offsetV?`, `rowOffset?`, `rowOffsetEvery?`, `columnOffset?`, `columnOffsetEvery?`, `origin?`, `wrap?` |
-| `pixelDissolve()` | `@remotion/effects/pixel-dissolve` | `progress?`, `columns?`, `rows?`, `seed?`, `feather?` |
 | `pixelate()` | `@remotion/effects/pixelate` | `blockSize?` |
+| `pixelDissolve()` | `@remotion/effects/pixel-dissolve` | `progress?`, `columns?`, `rows?`, `seed?`, `feather?` |
 | `radialProgressiveBlur()` | `@remotion/effects/radial-progressive-blur` | `center?`, `width?`, `height?`, `rotation?`, `start?`, `startBlur?`, `endBlur?` |
 | `radialProgressivePixelate()` | `@remotion/effects/radial-progressive-pixelate` | `center?`, `width?`, `height?`, `rotation?`, `start?`, `startBlockSize?`, `endBlockSize?` |
 | `regionBlur()` | `@remotion/effects/region-blur` | `topLeft`, `bottomRight`, `blurRadius?`, `feather?`, `roundness?` |
@@ -82,7 +82,6 @@ Every effect accepts an additional `disabled?: boolean`.
 | `thermalVision()` | `@remotion/effects/thermal-vision` | `amount?`, `palette?` |
 | `tile()` | `@remotion/effects/tile` | `horizontal?`, `vertical?` |
 | `tint()` | `@remotion/effects/tint` | `color`, `amount?` |
-| `xyTranslate()` | `@remotion/effects/translate` | `x?`, `y?` |
 | `turbulentDisplace()` | `@remotion/effects/turbulent-displace` | `displacement?`, `amount?`, `size?`, `offset?`, `complexity?`, `evolution?`, `cycleEvolution?`, `cycle?`, `seed?`, `pinning?` |
 | `tvSignalOff()` | `@remotion/effects/tv-signal-off` | `amount?` |
 | `venetianBlinds()` | `@remotion/effects/venetian-blinds` | `progress?`, `direction?`, `slats?` |
@@ -92,6 +91,7 @@ Every effect accepts an additional `disabled?: boolean`.
 | `waves()` | `@remotion/effects/waves` | `colors?`, `direction?`, `thickness?`, `gap?`, `angle?`, `offset?`, `amplitude?`, `wavelength?`, `phase?`, `maskToSourceAlpha?` |
 | `whiteBalance()` | `@remotion/effects/white-balance` | `temperature?`, `tint?` |
 | `whiteNoise()` | `@remotion/effects/white-noise` | `amount?`, `seed?` |
+| `xyTranslate()` | `@remotion/effects/translate` | `x?`, `y?` |
 | `zigzag()` | `@remotion/effects/zigzag` | `colors?`, `direction?`, `thickness?`, `gap?`, `angle?`, `offset?`, `amplitude?`, `wavelength?`, `maskToSourceAlpha?` |
 | `zoomBlur()` | `@remotion/effects/zoom-blur` | `amount?`, `center?`, `samples?` |
 
@@ -523,10 +523,6 @@ Every effect accepts an additional `disabled?: boolean`.
 - `horizontal` — Whether to repeat the source horizontally. Defaults to `true`.
 - `vertical` — Whether to repeat the source vertically. Defaults to `true`.
 
-### `xyTranslate()`
-- `x` — Horizontal offset in pixels. Defaults to `0`.
-- `y` — Vertical offset in pixels. Defaults to `0`.
-
 ### `turbulentDisplace()`
 - `displacement` — Distortion mode. Defaults to `turbulent`.
 - `amount` — Displacement strength in pixels. May be negative. Defaults to `50`.
@@ -583,6 +579,10 @@ Every effect accepts an additional `disabled?: boolean`.
 - `amount` — Blend amount from `0` to `1`. Defaults to `1`.
 - `seed` — Seed for the random noise pattern. Defaults to `0`.
 
+### `xyTranslate()`
+- `x` — Horizontal offset in pixels. Defaults to `0`.
+- `y` — Vertical offset in pixels. Defaults to `0`.
+
 ### `zigzag()`
 - `colors` — Stripe colors, assigned cyclically. Same semantics as lines().
 - `direction` — Base band direction before zig-zag displacement. Same as lines().
@@ -598,3 +598,8 @@ Every effect accepts an additional `disabled?: boolean`.
 - `amount` — Blur strength in pixels. Defaults to `40`.
 - `center` — Origin of the zoom blur in UV coordinates. Defaults to `[0.5, 0.5]`.
 - `samples` — Number of source samples. Higher values are smoother. Defaults to `24`.
+
+## Notes
+- Effects are declared on the media element via `effects={[...]}` and evaluated in order.
+- They are canvas-backed: they paint `<Video>`, `<CanvasImage>`, `<Solid>`, `<HtmlInCanvas>` — not arbitrary DOM.
+- See [../skills/remotion-effects/SKILL.md](../skills/remotion-effects/SKILL.md) for ordering, performance and writing a custom effect.
