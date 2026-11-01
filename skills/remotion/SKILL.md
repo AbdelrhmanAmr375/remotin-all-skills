@@ -7,7 +7,7 @@ version: 4.0.539
 # Remotion skills — router
 
 Load this skill first. It routes to exactly one or two specific skills, so you don't burn context on
-the other thirty.
+the other thirty-six.
 
 Every skill in this library is written against **Remotion `4.0.539`**. If the project pins a different
 version, load [remotion-upgrade](../remotion-upgrade/SKILL.md) before trusting any signature here.
@@ -27,6 +27,10 @@ Answer these yourself from the repo; only ask the user if the answer changes the
 | The user wants | Load |
 | --- | --- |
 | A new video from scratch ("make me a promo/explainer/ad/title") | [remotion-create-video](../remotion-create-video/SKILL.md), then [remotion-craft](../remotion-craft/SKILL.md) |
+| "I don't know what to say" / script, narration, voiceover | [remotion-script-and-vo](../remotion-script-and-vo/SKILL.md) |
+| Arabic text, RTL layout, Arabic fonts or captions | [remotion-arabic-rtl](../remotion-arabic-rtl/SKILL.md) |
+| "Where do I deliver this / what size / how loud" | [../../reference/delivery-specs.md](../../reference/delivery-specs.md) |
+| The mix sounds flat, music fights the voice | [remotion-sound-design](../remotion-sound-design/SKILL.md) |
 | No project exists yet / setup, config, Tailwind, TS paths | [remotion-project-setup](../remotion-project-setup/SKILL.md) |
 | "Make it look better / more professional / it looks amateur" | [remotion-craft](../remotion-craft/SKILL.md) |
 | Register a composition, props, Zod, variable duration | [remotion-composition](../remotion-composition/SKILL.md) |

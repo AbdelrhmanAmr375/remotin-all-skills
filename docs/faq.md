@@ -37,7 +37,7 @@ Anything that reads a directory of `SKILL.md` files. Verified shape: Claude Code
 Kimi, a custom harness — pass its skill path to `install.sh --dir`. If it has no skill concept at
 all, paste `skills/remotion/SKILL.md` first and then the one file you need.
 
-## Why 34 skills instead of one big document?
+## Why so many skills instead of one big document?
 
 Because agents load by description. One file covering animation *and* Lambda *and* 3D would be
 selected for everything, be too long to be read in full, and go stale as one giant unit. 34 narrow
@@ -62,6 +62,18 @@ Then it is almost certainly not a version problem. Run the symptom table in
 1. `Math.random()` or `Date.now()` in a component — the preview and the render disagree.
 2. `delayRender()` not released on the error path — the render hangs for 30 s and fails.
 3. A remote asset missing CORS — fine in the browser (cached), fails headless.
+
+## Is there something I can just run?
+
+Yes — [`examples/starter`](../examples/starter/README.md). `npm install && npm run dev` opens a Studio
+with three compositions (16:9 promo, 9:16 reel, Arabic RTL card). It is a normal Remotion project, so
+you can delete the skills library and keep using it.
+
+## Does it support Arabic?
+
+Yes, as of this version: [`remotion-arabic-rtl`](../skills/remotion-arabic-rtl/SKILL.md) covers
+direction, joining/`letterSpacing`, bidi isolation, Arabic font subsets and word-by-word Arabic
+captions, and `ArabicCard` in the starter is a working RTL composition.
 
 ## Can I use these snippets in a client project?
 

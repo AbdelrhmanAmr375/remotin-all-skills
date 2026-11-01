@@ -10,6 +10,7 @@ Checks:
   * no skill references a file that does not exist
   * the README skill table covers every skill directory
   * docs/ links resolve and its code fences are balanced
+  * examples/starter is present, versions pinned, registerRoot wired
   * the generated catalogs match scripts/data/*.json
 
 Exit code 1 on any error.
@@ -156,6 +157,40 @@ def main() -> int:
         if readme.exists() and "docs/README.md" not in readme.read_text(encoding="utf-8"):
             warnings.append("README.md does not link docs/README.md")
 
+    # examples/: links + fences, and a starter project that still looks like one
+    examples = ROOT / "examples"
+    if examples.is_dir():
+        for f in sorted(examples.rglob("*.md")):
+            text = f.read_text(encoding="utf-8")
+            check_fences(f, text)
+            check_links(f, text)
+        starter = examples / "starter"
+        for required in ("package.json", "tsconfig.json", "remotion.config.ts"):
+            if not (starter / required).exists():
+                errors.append(f"examples/starter is missing {required}")
+        entry = starter / "src" / "index.ts"
+        if not entry.exists():
+            errors.append("examples/starter/src/index.ts is missing (registerRoot)")
+        else:
+            if "registerRoot" not in entry.read_text(encoding="utf-8"):
+                errors.append("examples/starter/src/index.ts does not call registerRoot()")
+        pkg = starter / "package.json"
+        if pkg.exists():
+            import json
+
+            try:
+                data = json.loads(pkg.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as exc:
+                errors.append(f"examples/starter/package.json is not valid JSON: {exc}")
+            else:
+                for dep, version in data.get("dependencies", {}).items():
+                    if dep.startswith(("@remotion/", "remotion")) and version != "4.0.539":
+                        errors.append(
+                            f"examples/starter pins {dep}@{version}, expected 4.0.539"
+                        )
+    else:
+        warnings.append("examples/ is missing")
+
     # generated catalogs must match scripts/data/*.json
     gen = ROOT / "scripts" / "generate.py"
     if gen.exists():
@@ -180,7 +215,11 @@ def main() -> int:
 
     print()
     ref_count = len(list((ROOT / "reference").glob("*.md")))
-    print(f"{len(skill_dirs)} skills, {ref_count} reference files, {len(doc_pages)} doc pages")
+    example_count = len(list((ROOT / "examples").rglob("*"))) if (ROOT / "examples").is_dir() else 0
+    print(
+        f"{len(skill_dirs)} skills, {ref_count} reference files, "
+        f"{len(doc_pages)} doc pages, examples: {example_count} paths"
+    )
     if errors:
         print(f"FAILED with {len(errors)} error(s)")
         return 1

@@ -3,7 +3,7 @@
 A complete, verified [Agent Skills](https://agentskills.io) library for building video with
 [Remotion](https://www.remotion.dev).
 
-**34 skills · 83 effects · 20 transitions · 32 sound effects · 8 reference files.**
+**37 skills · 83 effects · 20 transitions · 32 sound effects · 11 reference files · a working starter project.**
 Every signature in this repo was checked against the published packages at **Remotion `4.0.539`**
 (not guessed from memory, not copied from a blog post).
 
@@ -48,6 +48,15 @@ git submodule add https://github.com/AbdelrhmanAmr375/remotin-all-skills .agent-
 ln -s ../.agent-skills/skills .claude/skills
 ```
 
+### Start from a working project
+
+```bash
+cd examples/starter && npm install && npm run dev
+```
+
+Three compositions — a 16:9 promo, a 9:16 reel, and an Arabic RTL card — already following every rule
+in this library. See [examples/starter/README.md](./examples/starter/README.md).
+
 ### Just read it
 
 Every skill is plain Markdown. Open [skills/remotion/SKILL.md](./skills/remotion/SKILL.md) and follow
@@ -66,6 +75,7 @@ The skills are the product. [\`docs/\`](./docs/README.md) is the manual for the 
 | [architecture](./docs/architecture.md) | Where does a change belong? Why are two catalogs generated? |
 | [verification](./docs/verification.md) | How was every API claim checked, and how do I re-check it? |
 | [contributing](./docs/contributing.md) | House style, review checklist, how to bump the Remotion version. |
+| [learning-path](./docs/learning-path.md) | Four routes through the library — pick the one that matches today. |
 | [faq](./docs/faq.md) | "I only see README.md", version questions, licensing, scope. |
 
 ---
@@ -80,6 +90,7 @@ The skills are the product. [\`docs/\`](./docs/README.md) is the manual for the 
 | [remotion-create-video](./skills/remotion-create-video/SKILL.md) | "Make me a video / promo / explainer / ad." |
 | [remotion-project-setup](./skills/remotion-project-setup/SKILL.md) | New project, config, Tailwind, TypeScript, folder structure, aliases. |
 | [remotion-craft](./skills/remotion-craft/SKILL.md) | **How to make it look good.** Timing, easing, type scale, color, motion principles. |
+| [remotion-script-and-vo](./skills/remotion-script-and-vo/SKILL.md) | Script before animation — 15/30/60s structures, words-per-second, hooks, VO sync. |
 
 ### Authoring
 
@@ -91,6 +102,7 @@ The skills are the product. [\`docs/\`](./docs/README.md) is the manual for the 
 | [remotion-transitions](./skills/remotion-transitions/SKILL.md) | `<TransitionSeries>`, all 20 presentations, timings, custom presentations. |
 | [remotion-text-and-fonts](./skills/remotion-text-and-fonts/SKILL.md) | Type ramp, Google Fonts, local fonts, `fitText`, `@remotion/rounded-text-box`, highlights. |
 | [remotion-layout](./skills/remotion-layout/SKILL.md) | `<AbsoluteFill>`, safe areas, centering, `measureText`, `fillTextBox`, responsive layouts. |
+| [remotion-arabic-rtl](./skills/remotion-arabic-rtl/SKILL.md) | **Arabic and RTL** — direction, Arabic fonts, cursive letter-spacing, bidi, Arabic captions. |
 | [remotion-svg-shapes-paths](./skills/remotion-svg-shapes-paths/SKILL.md) | `@remotion/shapes`, `@remotion/paths`, line drawing, morphing, `evolvePath()`. |
 | [remotion-effects](./skills/remotion-effects/SKILL.md) | All 83 `@remotion/effects` + `<Solid>`, `<HtmlInCanvas>`, `<CanvasImage>`, custom effects. |
 | [remotion-motion-blur](./skills/remotion-motion-blur/SKILL.md) | `<Trail>`, `<CameraMotionBlur>`, `<HtmlInCanvasMotionBlur>`. |
@@ -102,6 +114,7 @@ The skills are the product. [\`docs/\`](./docs/README.md) is the manual for the 
 | --- | --- |
 | [remotion-media](./skills/remotion-media/SKILL.md) | `<Video>`, `<OffthreadVideo>`, `<Img>`, `<Gif>`, `<Lottie>`, `<AnimatedImage>`, trimming, playback rate. |
 | [remotion-audio](./skills/remotion-audio/SKILL.md) | `<Audio>`, volume ramps, ducking, beat sync, `useAudioData`, waveforms. |
+| [remotion-sound-design](./skills/remotion-sound-design/SKILL.md) | The mix — music sourcing and licensing, ducking, limiters, loudness targets, accents. |
 | [remotion-captions](./skills/remotion-captions/SKILL.md) | SRT/VTT, Whisper transcription, TikTok-style captions, karaoke highlighting. |
 | [remotion-sfx](./skills/remotion-sfx/SKILL.md) | `@remotion/sfx` — 32 meme/UI sound effects and when to use them. |
 | [remotion-data-viz](./skills/remotion-data-viz/SKILL.md) | Animated bar/line/pie charts, counters, number reveals, data-driven scenes. |
@@ -146,6 +159,9 @@ Standalone lookups, no narrative:
 - [effects-catalog.md](./reference/effects-catalog.md) — all 83 effects with parameters.
 - [transitions-catalog.md](./reference/transitions-catalog.md) — all 20 presentations + timings.
 - [sfx-catalog.md](./reference/sfx-catalog.md) — all 32 sound effects with URLs and durations.
+- [delivery-specs.md](./reference/delivery-specs.md) — size, fps, length, loudness and codec per platform.
+- [typography-and-rtl.md](./reference/typography-and-rtl.md) — Arabic font table, RTL rules, type scale.
+- [motion-language.md](./reference/motion-language.md) — the 12 principles as Remotion numbers.
 - [packages.md](./reference/packages.md) — every `@remotion/*` package, what it does, install command.
 - [error-catalog.md](./reference/error-catalog.md) — exact error strings and their fixes.
 - [glossary.md](./reference/glossary.md) — frame, composition, serve URL, concurrency, premount…
@@ -176,7 +192,7 @@ Standalone lookups, no narrative:
 ## Maintaining this repo
 
 ```bash
-python3 scripts/validate.py          # frontmatter, names, internal links, code fences, README coverage
+python3 scripts/validate.py          # frontmatter, names, internal links, code fences, docs/, examples/
 python3 scripts/generate.py          # regenerate the two generated catalogs from scripts/data/*.json
 python3 scripts/generate.py --check  # fail if a committed catalog is stale (use this in review)
 bash -n scripts/install.sh           # syntax-check the installer

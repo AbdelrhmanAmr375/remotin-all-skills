@@ -13,11 +13,15 @@ Run this before rendering anything you intend to deliver.
 - [ ] Every async dependency wrapped in `delayRender` / `continueRender` with an error path
 - [ ] All local assets referenced through `staticFile()`
 - [ ] Remote assets verified for CORS
+- [ ] Arabic text: `direction: rtl` at the root, `letterSpacing: 0`, `subsets: ['arabic']` loaded
+- [ ] Script word count fits `seconds × 2.6` (see remotion-script-and-vo)
 
 ## Craft
 
 - [ ] Nothing static for more than ~3 seconds
 - [ ] Every entrance eased; exits eased *out*
+- [ ] Frame 0 is the hook — no logo, no fade from black
+- [ ] Cuts land on the beat grid if there is music
 - [ ] Entrances rise/scale in, exits leave in the same direction they came
 - [ ] Type scale: nothing below 24px at 1080p; display type 96px+
 - [ ] Text inside the safe area (bottom 15–19% clear on vertical)

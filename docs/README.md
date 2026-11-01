@@ -10,6 +10,7 @@ together, how to use it, and how to change it without breaking it.
 | [architecture.md](./architecture.md) | You are adding, moving or renaming anything in the repo. |
 | [verification.md](./verification.md) | You want to know how the API claims in this repo were checked, or you are re-checking them. |
 | [contributing.md](./contributing.md) | You are writing or editing a skill. House style, review checklist, local tooling. |
+| [learning-path.md](./learning-path.md) | Four routes: never made a video, know React, need it by tomorrow, Arabic first. |
 | [faq.md](./faq.md) | Something does not behave the way you expect. |
 
 ## The map
@@ -18,10 +19,11 @@ together, how to use it, and how to change it without breaking it.
 remotin-all-skills/
 ├── README.md            ← front page: what this is, install, skill index
 ├── docs/                ← you are here
-├── skills/              ← 34 skills, one directory each
+├── examples/starter/    ← a working Remotion project (npm i && npm run dev)
+├── skills/              ← 37 skills, one directory each
 │   ├── remotion/        ← the router; every agent starts here
 │   └── remotion-*/SKILL.md
-├── reference/           ← 8 standalone lookups, no narrative
+├── reference/           ← 11 standalone lookups, no narrative
 │   ├── effects-catalog.md      (generated)
 │   ├── sfx-catalog.md          (generated)
 │   └── *.md

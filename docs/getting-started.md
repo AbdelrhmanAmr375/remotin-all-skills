@@ -28,7 +28,7 @@ That creates:
 │   │   ├── remotion/SKILL.md
 │   │   ├── remotion-craft/SKILL.md
 │   │   └── … 34 directories, one SKILL.md each
-│   └── remotion-reference/        ← the 8 reference files, next to skills/
+│   └── remotion-reference/        ← the reference files, next to skills/
 ```
 
 Existing files are skipped. `FORCE=1 ./scripts/install.sh --claude` overwrites.

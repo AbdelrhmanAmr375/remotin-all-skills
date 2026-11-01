@@ -1,0 +1,29 @@
+{
+  "name": "remotion-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A working Remotion starter from the remotion-all-skills library",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render Promo out/promo-16x9.mp4 --codec=h264 --crf=19",
+    "render:reel": "remotion render Reel out/reel-9x16.mp4 --codec=h264 --crf=20",
+    "render:arabic": "remotion render ArabicCard out/arabic-1x1.mp4 --codec=h264 --crf=20",
+    "still": "remotion still Promo out/frame-0.png --frame=0",
+    "typecheck": "tsc --noEmit",
+    "versions": "remotion versions"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.539",
+    "@remotion/google-fonts": "4.0.539",
+    "@remotion/media": "4.0.539",
+    "@remotion/sfx": "4.0.539",
+    "@remotion/transitions": "4.0.539",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.539"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.6.3"
+  }
+}

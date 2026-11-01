@@ -11,7 +11,8 @@ looks wrong. If you only read one section, read
 | --- | --- | --- |
 | 1. Signature extraction | The names, parameters and defaults in `reference/` exist in the shipped `.d.ts` | `npm pack` + grep over 25 packages |
 | 2. Doc cross-check | Behaviour claims match the source-of-truth documentation | docs pages fetched from `remotion.dev` |
-| 3. Typecheck | The snippets in `skills/` actually compile | 296 code blocks, 48 compiled individually under `strict` |
+| 3. Typecheck | The snippets in `skills/` actually compile | 316 code blocks, 52 compiled individually under `strict` |
+| 4. Starter project | `examples/starter` installs, typechecks, bundles | `npm i`, `tsc --noEmit`, `remotion versions`, `remotion bundle` |
 
 ## 1. Signature extraction
 
@@ -57,8 +58,8 @@ Where a doc and a `.d.ts` disagreed, the `.d.ts` won and the doc page is cited i
 
 ## 3. Typecheck
 
-The skills contain 296 TypeScript/TSX blocks. 248 of them are fragments in context (a prop table, a
-single JSX attribute, an import line) and cannot be compiled alone. The **48 self-contained blocks** —
+The skills contain 316 TypeScript/TSX blocks. 264 of them are fragments in context (a prop table, a
+single JSX attribute, an import line) and cannot be compiled alone. The **52 self-contained blocks** —
 the ones that declare and export a component or function — were extracted and compiled one at a time:
 
 ```bash
@@ -84,7 +85,7 @@ for f in /tmp/probe/tc/*; do
 done
 ```
 
-Result: **0 semantic errors**, after fixing 23. Two categories of diagnostic are expected and were
+Result: **0 semantic errors**, after fixing 23 in the core set and 0 in the Arabic/script/sound skills. Two categories of diagnostic are expected and were
 filtered, because they are properties of a snippet, not bugs:
 
 - `TS2307` — `./MyVideo`, `@remotion/google-fonts/Inter` and similar app-local imports that only
@@ -92,6 +93,23 @@ filtered, because they are properties of a snippet, not bugs:
 - `TS2304` — `MyVideo`, `Promo`, `loadFont` referenced by a fragment that assumes the surrounding file.
 
 If you add a snippet, compile it. The filter above is not a licence to leave broken code in.
+
+## The starter project
+
+`examples/starter` is verified as a project, not as a snippet:
+
+```bash
+cd examples/starter
+npm install                  # 261 packages, all @remotion/* at 4.0.539
+npm run typecheck            # tsc --noEmit → clean
+npx remotion versions        # "All packages have the correct version."
+npx remotion bundle          # bundles to ./build
+```
+
+**Not verified here:** an actual still/frame render. Rendering needs the Chrome Headless Shell, and
+this environment has no route to `remotion.media` (where Remotion downloads it) — the download fails
+with `ECONNRESET`. On a normal machine `npx remotion still src/index.ts Promo out/f.png --frame=0`
+works; run it once after cloning to confirm the browser is in place.
 
 ## Refreshing the catalogs
 
