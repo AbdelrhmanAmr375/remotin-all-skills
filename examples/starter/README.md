@@ -15,8 +15,8 @@ Then in the Studio: **Promo** (16:9), **Reel** (9:16), **ArabicCard** (1:1, RTL)
 
 | Composition | Size | Length | Shows you |
 | --- | --- | --- | --- |
-| `Promo` | 1920×1080 | ~20 s | five scenes, `TransitionSeries`, duration maths from a theme file |
-| `Reel` | 1080×1920 | 12 s | vertical grammar, `Sequence` cards, a progress bar, one SFX |
+| `Promo` | 1920×1080 | 20 s (600 frames) | five scenes, `TransitionSeries`, duration maths from a theme file |
+| `Reel` | 1080×1920 | 12 s (360 frames) | vertical grammar, `Sequence` cards, a progress bar, one SFX |
 | `ArabicCard` | 1080×1080 | 5 s | RTL layout, Arabic font subset, `letterSpacing: 0`, isolated LTR token |
 | `Thumbnail` | 1280×720 | still | a `<Still>` so the cover matches the video's typography |
 

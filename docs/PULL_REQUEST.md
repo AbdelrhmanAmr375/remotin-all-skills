@@ -7,13 +7,13 @@ a working starter project, and a manual for the repo itself.
 ## What this adds
 
 **Core library (from PR #1, restored)**
-- 34 skills under `skills/<name>/SKILL.md`, routed by `skills/remotion/SKILL.md`
+- 34 core skills under `skills/<name>/SKILL.md` (37 with the new ones below), routed by `skills/remotion/SKILL.md`
   (content tier: craft, animation, timing, composition, transitions, effects, text, layout, media,
   audio, sfx, captions, svg/paths, motion blur, data viz, recipes · platform tier: create-video,
   project setup, studio, render, player, client-side rendering, lambda, server rendering,
   interactivity, three, skia, maps, performance · operations tier: debugging, testing, licensing,
   upgrade)
-- 8 reference files, 7 doc pages, `scripts/install.sh`, `scripts/validate.py`, `scripts/generate.py`
+- 8 core reference files, 7 doc pages, `scripts/install.sh`, `scripts/validate.py`, `scripts/generate.py`
 - generated catalogs: 83 effects, 32 sound effects
 
 **New in this PR — the gaps that stopped it being "everything you need"**
